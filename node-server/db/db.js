@@ -2,7 +2,7 @@
  * Created by issuser on 2017/8/21.
  */
 var mongoose = require('../node_modules/mongoose'),
-    DB_URL = 'mongodb://localhost:27017/configbs';
+    DB_URL = 'mongodb://localhost:27017/test';
 //连接数据库
 mongoose.connect(DB_URL,function(err){
     if(err){

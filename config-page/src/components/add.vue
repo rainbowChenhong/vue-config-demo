@@ -5,7 +5,7 @@
                    :show-close="false"
                    :modal-append-to-body="false"
                    :close-on-click-modal="false">
-            <el-form class="add-config">
+            <el-form class="add-config" :model="form"  ref="form" :rules="rules">
                 <el-col :span="12">
                     <el-form-item label="公司名称：" :label-width="formLabelWidth" prop="companyName">
                         <el-input placeholder="请输入公司名称"
@@ -51,6 +51,13 @@
                         <el-date-picker type="date" placeholder="选择日期" v-model="form.established" style="width: 100%;"></el-date-picker>
                     </el-form-item>
                 </el-col>
+                <el-col :span="12">
+                    <el-form-item  label="备注：" :label-width="formLabelWidth" >
+                        <el-input placeholder="请输入备注"
+                                  v-model="form.remark"
+                                  ></el-input>
+                    </el-form-item>
+                </el-col>
             </el-form>
             <div slot="footer" class="dialog-footer">
                 <el-button @click="resetForm('form')">取 消</el-button>
@@ -61,21 +68,37 @@
 </template>
 
 <script>
+    import {address,subsidiary} from './../utils/index';
+    import API from './../api/index';
     export default {
         name: '',
         data () {
+            let validateEstablished=(rule, value, callback)=>{
+                if(!value){
+                    callback(new Error('请选择成立时间'));
+                }
+                callback()
+            };
             return {
                 form:{
-                    formLabelWidth:'100px',
                     companyName:'',
                     address:'',
                     established:'',
                     subsidiary:'',
-
+                    status:true,
+                    remark:''
                 },
                 formLabelWidth: '120px',
-                address:[],
-                subsidiary:[],
+                address:address,
+                subsidiary:subsidiary,
+                rules:{
+                    companyName: [{required: true, message: '请输入公司名字', trigger: 'change'}],
+                    address: [{required: true, message: '请选择公司地址', trigger: 'change'}],
+                    total: [{required: true, message: '请输入总人数', trigger: 'change'}],
+                    subsidiary:[{required: true, message: '请选择子公司名称', trigger: 'change'}],
+                    established:[{validator: validateEstablished, trigger: 'change'}],
+                    }
+
             }
         },
         props: {
@@ -83,11 +106,27 @@
             dataConfig: Object,
         },
         methods:{
-            resetForm(){
+            resetForm(formName){
                 this.$emit('dialogClose');
             },
-            submitForm(){
+            submitForm(formName){
+                this.$refs[formName].validate((valid) =>{
+                    if (valid) {
+                        if (!this.dataConfig.companyName){
+                            API.addCompany(this.form).then((res)=>{
+                                this.$message({
+                                    showClose: true,
+                                    message: '添加成功',
+                                    type: 'success'
+                                });
+                                this.$emit('dialogClose');
+                                this.$emit('addSuccess');
+                                this.resetForm('form')
+                            });
+                        }
 
+                    }
+                })
             }
         }
     }

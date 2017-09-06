@@ -3,10 +3,10 @@
  */
 var express=require('./node_modules/express');
 var logger = require('./node_modules/morgan');
-var addConfig=require('./db/addConfig.js');
+var addCompany=require('./db/addCompany.js');
 var queryList=require('./db/queryList.js');
-var updateConfig=require('./db/updateConfig.js');
-var deleteConfig=require('./db/deleteConfig.js');
+var updateCompany=require('./db/updateCompany.js');
+var deleteCompany=require('./db/deleteCompany.js');
 var bodyParser = require('./node_modules/body-parser');
 var env = process.env.NODE_ENV || 'production';
 var app=express();
@@ -17,15 +17,15 @@ app.listen("8088",function(){
 });
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.post('/config/query_config_list',function (req,res) {
+app.post('/company/query_company_list',function (req,res) {
     queryList(req,res)
 });
-app.post('/config/add_config',function (req,res) {
-    addConfig(req,res);
+app.post('/company/add_company',function (req,res) {
+    addCompany(req,res);
 });
-app.post('/config/update_config',function (req,res) {
-    updateConfig(req,res);
+app.post('/company/update_company',function (req,res) {
+    updateCompany(req,res);
 });
-app.post('/config/delete_config',function (req,res) {
-    deleteConfig(req,res);
+app.post('/company/delete_company',function (req,res) {
+    deleteCompany(req,res);
 });

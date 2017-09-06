@@ -50,7 +50,7 @@ module.exports = {
         historyApiFallback: true,
         noInfo: true,
         proxy: {
-            '/config/*': {
+            '/company/*': {
                 target: 'http://192.168.149.32:8088/',
                 secure: false,
             }

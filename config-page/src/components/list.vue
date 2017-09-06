@@ -98,9 +98,15 @@
             }
         },
         components:{AddContainer},
+        mounted(){
+            this.requestList()
+        },
         methods:{
             addConfig(){
                 this.dialogFormVisible=true;
+            },
+            requestList(data){
+
             },
             handleSizeChange(){
 

@@ -6,24 +6,16 @@ var utils = require('./utils');
 /**
  * 插入
  */
-function addConfig(req, res) {
-    var data = req.body;
-    var interfaceTypeArray;
-    var dataArray = [];
+function addCompany(req, res) {
+    var subsidiaryArray;
+    var data = utils.createJson(req.body);
     var wherestr={
-        companyId: req.body.companyId,
-        monitoringIndex:req.body.monitoringIndex,
-        warnLevel:req.body.warnLevel
+        companyName: req.body.companyName,
+        established:req.body.established,
+        address:req.body.address,
+        subsidiary:req.body.subsidiary
 }
-    interfaceTypeArray = data.interfaceType.split(",");
-    for (var i = 0; i < interfaceTypeArray.length; i++) {
-        if (interfaceTypeArray[i]) {
-            var item = utils.cloneObj(data);
-            item.interfaceType = interfaceTypeArray[i];
-            dataArray.push(item);
-        }
-    }
-    ConfigSchema.count(wherestr).where('interfaceType').in(interfaceTypeArray).exec(
+    ConfigSchema.count(wherestr).exec(
         function (err, count) {
             if (err) {
                 return
@@ -34,7 +26,8 @@ function addConfig(req, res) {
                 res.send(resData);
                 return
             }else{
-                ConfigSchema.insertMany(dataArray, function (error, docs) {
+                var monInsert = new ConfigSchema(data);
+                monInsert.save(function (error, docs) {
                     if (error) {
                         var resData = utils.createSuccess(500, '成功');
                         res.send(resData);
@@ -49,4 +42,4 @@ function addConfig(req, res) {
 };
 
 
-module.exports = addConfig;
+module.exports = addCompany;

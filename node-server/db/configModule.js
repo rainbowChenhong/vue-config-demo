@@ -5,16 +5,12 @@ var mongoose = require('./db.js'),
     Schema = mongoose.Schema;
 
 var ConfigSchema = new Schema({
-    interfaceType : { type: String },
-    companyId: {type: String},
-    monitoringIndex: {type: String},
-    warnLevel : { type: String} ,
-    maxThresholdRange:{type: String},
-    minThresholdRange:{type: String},
-    period: {type: Number},
-    status:{type: Number},
-    remark: {type: String},
-    external:{type: String},
-    absoluteValue:{type: String},
+    companyName : { type: String },
+    address: {type: String},
+    established: {type: String},
+    subsidiary : { type: String} ,
+    status:{type: Boolean},
+    remark:{type: String},
+    total:{type: String}
 });
 module.exports = mongoose.model('ConfigSchema',ConfigSchema);
