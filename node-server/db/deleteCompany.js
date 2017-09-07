@@ -3,7 +3,7 @@
  */
 var ConfigSchema = require("./configModule.js");
 var utils=require('./utils');
-function deleteConfig(req,res) {
+function deleteCompany(req,res) {
     ConfigSchema.findByIdAndRemove = function (id, options, callback) {
         if (1 === arguments.length && 'function' == typeof id) {
             throw new TypeError('参数错误')
@@ -21,4 +21,4 @@ function deleteConfig(req,res) {
         }
     })
 }
-module.exports = deleteConfig;
+module.exports = deleteCompany;

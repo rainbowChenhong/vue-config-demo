@@ -33,7 +33,6 @@ const checkRespStatus = (respPromise) => {
 export default {
     queryList:param=>request('/company/query_company_list', param),
     addCompany:param=>request('/company/add_company', param),
-    queryCompanyDetail:param=>request('/company/query_company_detail', param),
     updateCompany:param=>request('/company/update_company', param),
     deleteCompany:param=>request('/company/delete_company', param),
     searchCompany:param=>request('/company/search_company', param),

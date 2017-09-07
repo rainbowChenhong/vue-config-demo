@@ -48,7 +48,12 @@
                 </el-col>
                 <el-col :span="12">
                     <el-form-item  label="成立时间：" :label-width="formLabelWidth" prop="established">
-                        <el-date-picker type="date" placeholder="选择日期" v-model="form.established" style="width: 100%;"></el-date-picker>
+                        <el-date-picker
+                                v-model="form.established"
+                                type="date"
+                                placeholder="选择日期"
+                               >
+                        </el-date-picker>
                     </el-form-item>
                 </el-col>
                 <el-col :span="12">
@@ -123,11 +128,32 @@
                                 this.$emit('addSuccess');
                                 this.resetForm('form')
                             });
+                        }else{
+                            this.form.id = this.dataConfig._id;
+                            this.updateConfig(this.form);
                         }
 
                     }
                 })
-            }
+            },
+            updateConfig(data){
+                API.updateConfig(data).then((res) => {
+                    this.$message({
+                        showClose: true,
+                        message: '更新成功',
+                        type: 'success'
+                    });
+                    this.$emit('dialogClose');
+                    this.$emit('updateSuccess');
+                    this.resetForm('form')
+                }).catch((err) => {
+                    this.$message({
+                        showClose: true,
+                        message: err.mes,
+                        type: 'error'
+                    });
+                });
+            },
         }
     }
 </script>

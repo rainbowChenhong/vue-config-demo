@@ -3,7 +3,7 @@
  */
 var ConfigSchema = require("./configModule.js");
 var utils=require('./utils');
-function updateConfig(req,res) {
+function updateCompany(req,res) {
     var id=req.body.id;
     var updatestr=utils.createJson(req.body);
      delete updatestr.id;
@@ -24,4 +24,4 @@ function updateConfig(req,res) {
     }
 
 };
-module.exports = updateConfig;
+module.exports = updateCompany;
