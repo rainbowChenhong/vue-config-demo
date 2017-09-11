@@ -30,7 +30,7 @@
                     <el-form-item label="总人数：" :label-width="formLabelWidth" prop="total">
                         <el-input placeholder="请输入总人数"
                                   v-model="form.total"
-                                  :disabled="dataConfig.companyName!=undefined"></el-input>
+                                  ></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="12">
@@ -52,6 +52,7 @@
                                 v-model="form.established"
                                 type="date"
                                 placeholder="选择日期"
+                                @change="getEstablished"
                                >
                         </el-date-picker>
                     </el-form-item>
@@ -110,8 +111,18 @@
             dialogFormVisible: Boolean,
             dataConfig: Object,
         },
+        mounted(){
+            if(this.dataConfig.companyName!==undefined){
+                this.form={...this.dataConfig}
+            }
+        },
         methods:{
+            getEstablished(val){
+              this.form.established=val;
+            },
             resetForm(formName){
+                this.$refs[formName].resetFields();
+                this.$refs[formName].resetFields();
                 this.$emit('dialogClose');
             },
             submitForm(formName){
@@ -137,7 +148,7 @@
                 })
             },
             updateConfig(data){
-                API.updateConfig(data).then((res) => {
+                API.updateCompany(data).then((res) => {
                     this.$message({
                         showClose: true,
                         message: '更新成功',

@@ -57,6 +57,7 @@
                                         v-model="formSearch.established"
                                         type="date"
                                         placeholder="选择日期"
+                                        @change="getEstablished"
                                 >
                                 </el-date-picker>
                             </el-form-item>
@@ -183,6 +184,7 @@
         },
         methods: {
             addConfig(){
+                this.config = {}
                 this.dialogFormVisible = true;
             },
             requestList(data){
@@ -197,7 +199,7 @@
             },
             initQueryList(){
                 this.formSearch.currentPage=1;
-                this.queryList(this.formSearch);
+                this.requestList(this.formSearch);
             },
             resetForm(formName) {
                 this.$refs[formName].resetFields();
@@ -211,7 +213,7 @@
             },
             handleCurrentChange(val){
                 this.formSearch.currentPage = val;
-                this.queryList(this.formSearch);
+                this.requestList(this.formSearch);
             },
             handleSizeChange(){
                 this.initQueryList()
@@ -236,6 +238,9 @@
                         type: 'success'
                     });
                 });
+            },
+            getEstablished(val){
+                this.formSearch.established=val;
             },
             deleteConfig(id){
                 this.$confirm('是否确认删除该条记录？')
