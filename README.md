@@ -10,6 +10,7 @@ cd config-page
 npm install //安装前端依赖包
 ```
 ### 后端运行
+需要先启动mongoDB的服务器，再执行此代码，否则会报错
 ```
  npm run server (正常启动模式)
  访问 http://localhost:8088
