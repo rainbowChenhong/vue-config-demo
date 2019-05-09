@@ -1,7 +1,8 @@
 <template>
     <div>
         <el-dialog title="添加配置信息"
-                   v-model="dialogFormVisible"
+                  
+                     :visible.sync="dialogFormVisible"
                    :show-close="false"
                    :modal-append-to-body="false"
                    :close-on-click-modal="false">

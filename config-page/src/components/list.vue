@@ -117,10 +117,8 @@
                     min-width="200">
                 <template scope="scope">
                     <el-button-group>
-                        <el-button type="success" icon="edit" size="small"
-                                   @click="showDialog(scope.row)"  ></el-button>
-                        <el-button type="danger" icon="delete" size="small"
-                                   @click="deleteConfig(scope.row._id)"></el-button>
+                      <el-button  type="success"  icon="el-icon-edit" @click="showDialog(scope.row)" size="small"></el-button>
+                      <el-button type="danger" icon="el-icon-delete" @click="deleteConfig(scope.row._id)" size="small"></el-button>
                     </el-button-group>
                     <el-switch
                             @change="updateConfig(scope.row)"
@@ -186,6 +184,7 @@
             addConfig(){
                 this.config = {}
                 this.dialogFormVisible = true;
+                console.log("333")
             },
             requestList(data){
                 API.queryList(data).then((res) => {
